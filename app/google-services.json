@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "771014070932",
+    "firebase_url": "https://skripsi-hanun.firebaseio.com",
+    "project_id": "skripsi-hanun",
+    "storage_bucket": "skripsi-hanun.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771014070932:android:4b7c869c49cf6df57ada81",
+        "android_client_info": {
+          "package_name": "dipdip.android.dip.com.hanun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771014070932-d7ml6c5phd2vt2eltr80or172j5ucp8i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dipdip.android.dip.com.hanun",
+            "certificate_hash": "a0869baba60a2e44974db85a8d923ce53e4461b4"
+          }
+        },
+        {
+          "client_id": "771014070932-mo2dilcqan68bogolb777q5drnl930b6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq3XyyhnUNpLaLHc5FlyrcAt8XU7XMoZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771014070932-mo2dilcqan68bogolb777q5drnl930b6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
