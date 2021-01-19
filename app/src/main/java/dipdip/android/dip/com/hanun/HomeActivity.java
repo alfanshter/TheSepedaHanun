@@ -130,7 +130,7 @@ public class HomeActivity extends Activity {
 
         mDatabase2 = database.getReference("user_list");
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
-
+        //=========
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot ds) {
@@ -193,6 +193,7 @@ public class HomeActivity extends Activity {
             }
         };
         mDatabase.addValueEventListener(postListener);
+        //=========
 
         mDatabase2.addValueEventListener(new ValueEventListener() {
             @Override
