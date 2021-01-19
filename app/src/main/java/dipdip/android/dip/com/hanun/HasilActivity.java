@@ -34,6 +34,16 @@ public class HasilActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hasil);
+
+        String suhu_hasil = getIntent().getStringExtra("suhu");
+        String data_jantung_hasil = getIntent().getStringExtra("deta_jantung");
+        String putaran_hasil = getIntent().getStringExtra("putaran");
+        String kecepatan_hasil = getIntent().getStringExtra("kecepatan");
+
+        waktu = suhu_hasil;
+        detak_jantung = data_jantung_hasil;
+        putaran = putaran_hasil;
+        kecepatan = kecepatan_hasil;
         tvWaktu = (TextView)findViewById(R.id.textView8);
         tvSuhu = (TextView)findViewById(R.id.textView10);
         tvDetak = (TextView)findViewById(R.id.textView12);
@@ -46,6 +56,8 @@ public class HasilActivity extends Activity {
         tvPutaran.setText(putaran);
         tvKecepatan.setText(kecepatan);
         sp = (Spinner)findViewById(R.id.spinner);
+
+
 
         if(Float.parseFloat(suhu)>=35 && Float.parseFloat(suhu)<=38
             && Float.parseFloat(detak_jantung)<220-Float.parseFloat(AkunActivity.usia)){

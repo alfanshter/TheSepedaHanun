@@ -332,6 +332,18 @@
             android:text="Warning"/>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear2"
+        >
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listview"
+            />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_alignParentBottom="true"

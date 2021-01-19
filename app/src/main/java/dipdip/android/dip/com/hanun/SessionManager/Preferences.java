@@ -11,6 +11,7 @@ public class Preferences {
     static final String KEY_USER_TEREGISTER ="user", KEY_PASS_TEREGISTER ="pass";
     static final String KEY_USERNAME_SEDANG_LOGIN = "Username_logged_in";
     static final String KEY_STATUS_SEDANG_LOGIN = "Status_logged_in";
+    static final String KEY_USIA = "Usia";
 
     /** Pendlakarasian Shared Preferences yang berdasarkan paramater context */
     private static SharedPreferences getSharedPreference(Context context){
@@ -27,6 +28,16 @@ public class Preferences {
     /** Mengembalikan nilai dari key KEY_USER_TEREGISTER berupa String */
     public static String getRegisteredUser(Context context){
         return getSharedPreference(context).getString(KEY_USER_TEREGISTER,"");
+    }
+
+    public static void setUsia(Context context, String usia){
+        SharedPreferences.Editor editor = getSharedPreference(context).edit();
+        editor.putString(KEY_USIA, usia);
+        editor.apply();
+    }
+    /** Mengembalikan nilai dari key KEY_USER_TEREGISTER berupa String */
+    public static String getUsia(Context context){
+        return getSharedPreference(context).getString(KEY_USIA,"");
     }
 
     /** Deklarasi Edit Preferences dan mengubah data

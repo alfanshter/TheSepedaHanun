@@ -62,6 +62,7 @@ import dipdip.android.dip.com.hanun.FCMService.Token;
 import dipdip.android.dip.com.hanun.Model.HomeModel;
 import dipdip.android.dip.com.hanun.Network.APIService;
 import dipdip.android.dip.com.hanun.Network.Client;
+import dipdip.android.dip.com.hanun.SessionManager.Preferences;
 
 
 public class HomeActivity extends Activity {
@@ -109,9 +110,7 @@ public class HomeActivity extends Activity {
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
         notif = MediaPlayer.create(this, R.raw.notifikasi);
-        linearLayout = (LinearLayout)findViewById(R.id.linear1);
-        linearLayout2 = (LinearLayout)findViewById(R.id.linear2);
-        listviewHanun = (ListView) findViewById(R.id.listview);
+//        listviewHanun = (ListView) findViewById(R.id.listview);
         tv = (TextView)findViewById(R.id.textView8);
         tv2 = (TextView)findViewById(R.id.textView10);
         tv3 = (TextView)findViewById(R.id.textView12);
@@ -121,8 +120,8 @@ public class HomeActivity extends Activity {
         btnHsil  =(Button)findViewById(R.id.button8);
         btnHsil.setVisibility(View.INVISIBLE);
         millis = System.currentTimeMillis();
-         linearLayout.setVisibility(View.VISIBLE);
-        linearLayout2.setVisibility(View.INVISIBLE);
+
+
         mDatabase = FirebaseDatabase.getInstance().getReference("monitoring");
         mDatabaseHist = FirebaseDatabase.getInstance().getReference("riwayat");
         database = FirebaseDatabase.getInstance();
@@ -140,8 +139,10 @@ public class HomeActivity extends Activity {
                 double score2 = ds.child("putaran").getValue(Double.class);
                 double score3 = ds.child("rpm").getValue(Double.class);
                 double score4 = ds.child("hearth_rate").getValue(Double.class);
+                String usiaString = Preferences.getUsia(getBaseContext());
+                double usia = Double.parseDouble(usiaString);
                 if(isMulai && score2>0 && notif2 == false) {
-                    if(score>38 || score4>(220-Integer.valueOf(AkunActivity.usia))){
+                    if(score>38 || score4>(220-usia)){
                         notif.start();
                         notifikasi("STOP! DATA ANDA MELEBIHI BATAS NORMAL", "PERINGATAN !!!");
                         notif2 = true;
@@ -196,13 +197,15 @@ public class HomeActivity extends Activity {
         mDatabase2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds: dataSnapshot.getChildren()){
-                    user = ds.getValue(HomeModel.class);
-                    list.add(user.nama);
-                    list2.add(user.token);
-                    listuid.add(user.uid);
+                if (dataSnapshot.exists()){
+                    for(DataSnapshot ds: dataSnapshot.getChildren()){
+                        user = ds.getValue(HomeModel.class);
+                        list.add(user.nama);
+                        list2.add(user.token);
+                        listuid.add(user.uid);
+                    }
+//                    listviewHanun.setAdapter(adapter);
                 }
-                listviewHanun.setAdapter(adapter);
             }
 
             @Override
@@ -210,7 +213,7 @@ public class HomeActivity extends Activity {
 
             }
         });
-        listviewHanun.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+     /*   listviewHanun.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @SuppressLint("ShowToast")
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -235,14 +238,22 @@ public class HomeActivity extends Activity {
                     }
                 });
             }
-        });
+        });*/
         UpdateToken();
 
         btnHsil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                linearLayout.setVisibility(View.INVISIBLE);
-                linearLayout2.setVisibility(View.VISIBLE);
+                String hasil = tv.getText().toString();
+                Intent i = new Intent(getBaseContext(), HasilActivity.class);
+                i.putExtra("suhu", tv.getText().toString());
+                i.putExtra("deta_jantung", tv4.getText().toString());
+                i.putExtra("putaran", tv2.getText().toString());
+                i.putExtra("kecepatan", tv3.getText().toString());
+                Toast.makeText(HomeActivity.this, hasil, Toast.LENGTH_LONG).show();
+                startActivity(i);
+/*                linearLayout.setVisibility(View.INVISIBLE);
+                linearLayout2.setVisibility(View.VISIBLE);*/
             }
 
         });

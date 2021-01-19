@@ -86,7 +86,7 @@ public class DaftarActivity extends Activity {
                             data.put("uid", hanun);
                             data.put("token_id", refreshedToken);
                             mFirestore.collection("Users").document(hanun).set(data);
-
+                            Preferences.setUsia(getBaseContext(),usia);
                             setted = true;
                             Preferences.setLoggedInUser(getBaseContext(),Preferences.getRegisteredUser(getBaseContext()));
                             Preferences.setLoggedInStatus(getBaseContext(),true);
