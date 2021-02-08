@@ -11,6 +11,9 @@ return admin.firestore().collection("Users").doc(user_id).collection("Notificati
   
     const from_user_id = queryResult.data().from;
     const from_message = queryResult.data().message;
+    const suhu = queryResult.data().suhu;
+    const detak_jantung = queryResult.data().detak_jantung;
+    const diagnosis = queryResult.data().diagnosis;
   
     const from_data = admin.firestore().collection("Users").doc(from_user_id).get();
     const to_data = admin.firestore().collection("Users").doc(user_id).get();
@@ -26,7 +29,11 @@ return admin.firestore().collection("Users").doc(user_id).collection("Notificati
             },
             data: {
                 message : from_message,
-                from_user_id : from_user_id
+                from_user_id : from_user_id,
+                suhu : suhu,
+                detak_jantung : detak_jantung,
+                diagnosis : diagnosis
+                
             }
         };
 

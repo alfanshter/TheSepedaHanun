@@ -71,6 +71,8 @@ public class HasilActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hasil);
         progressDialog = new ProgressDialog(this);
+        FirebaseUser auth = FirebaseAuth.getInstance().getCurrentUser();
+        final String UserID = auth.getUid();
         String suhu_hasil = getIntent().getStringExtra("suhu");
         String data_jantung_hasil = getIntent().getStringExtra("deta_jantung");
         String putaran_hasil = getIntent().getStringExtra("putaran");
@@ -94,8 +96,8 @@ public class HasilActivity extends Activity {
         buttonbagikan = (Button) findViewById(R.id.btn_bagihasil);
         linearLayout = (LinearLayout) findViewById(R.id.linear1);
         linearLayout2 = (LinearLayout) findViewById(R.id.linear2);
-        tvWaktu.setText(waktu);
-        tvSuhu.setText(suhu);
+        tvWaktu.setText(suhu);
+        tvSuhu.setText(waktu);
         tvDetak.setText(detak_jantung);
         tvPutaran.setText(putaran);
         tvKecepatan.setText(kecepatan);
@@ -109,8 +111,10 @@ public class HasilActivity extends Activity {
         if(Float.parseFloat(suhu)>=35 && Float.parseFloat(suhu)<=38
             && Float.parseFloat(detak_jantung)<220-Float.parseFloat(AkunActivity.usia)){
             tvDiagnosis.setText("Normal");
+            diagnosis = "Normal";
         } else {
             tvDiagnosis.setText("Tidak Normal");
+            diagnosis = "Tidak Normal";
         }
 
         mDatabase2.addValueEventListener(new ValueEventListener() {
@@ -147,7 +151,10 @@ public class HasilActivity extends Activity {
                 progressDialog.setCanceledOnTouchOutside(false);
                 Map<String, Object> data = new HashMap<>();
                 data.put("message", "Bagi hasil ");
-                data.put("from", uid);
+                data.put("from", UserID);
+                data.put("suhu" , waktu);
+                data.put("detak_jantung" ,detak_jantung);
+                data.put("diagnosis" ,diagnosis);
                 mFirestore.collection("Users/"+uid+"/Notifications").add(data).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {

@@ -2,6 +2,7 @@ package dipdip.android.dip.com.hanun;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class NotifikasiActivity extends Activity {
     TextView tv1, tv2, tv3, tv4;
-    String data;
+    String data,suhu,detak_jantung,diagnosis;
     private DatabaseReference mDatabase;
     private String auth;
     ProgressDialog progressDialog;
@@ -29,6 +30,10 @@ public class NotifikasiActivity extends Activity {
         progressDialog.setCanceledOnTouchOutside(false);
 
         data = getIntent().getStringExtra("from_user_id");
+        suhu = getIntent().getStringExtra("suhu");
+        detak_jantung = getIntent().getStringExtra("detak_jantung");
+        diagnosis = getIntent().getStringExtra("diagnosis");
+
         auth = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference("user_list");
         tv1 = (TextView)findViewById(R.id.textView26);
@@ -42,12 +47,9 @@ public class NotifikasiActivity extends Activity {
             public void onDataChange(DataSnapshot ds) {
                 // Get Post object and use the values to update the UI
                 String nama = ds.child("nama").getValue(String.class);
-                String suhu = ds.child("notif_suhu").getValue(String.class);
-                String detak = ds.child("notif_hearth_rate").getValue(String.class);
-                String diagnosis = ds.child("notif_diagnosis").getValue(String.class);
                 tv1.setText("User " +nama+ "Mengirim Notifikasi");
                 tv2.setText(suhu);
-                tv3.setText(detak);
+                tv3.setText(detak_jantung);
                 tv4.setText(diagnosis);
                 // ...
                 progressDialog.dismiss();
@@ -63,5 +65,13 @@ public class NotifikasiActivity extends Activity {
 
         mDatabase.child(data).addListenerForSingleValueEvent(postListener2);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(getBaseContext(), HomeActivity.class);
+        startActivity(i);
+        finish();
     }
 }

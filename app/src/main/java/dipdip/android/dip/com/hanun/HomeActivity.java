@@ -102,6 +102,8 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         progressDialog = new ProgressDialog(this);
+        FirebaseUser auth = FirebaseAuth.getInstance().getCurrentUser();
+        final String UserID = auth.getUid();
         user = new HomeModel();
         list = new ArrayList<>();
         list2 = new ArrayList<>();
@@ -144,7 +146,10 @@ public class HomeActivity extends Activity {
                 if(isMulai && score2>0 && notif2 == false) {
                     if(score>38 || score4>(220-usia)){
                         notif.start();
+                        mDatabase2.child(UserID).child("notif_suhu").setValue(String.valueOf(score));
+                        mDatabase2.child(UserID).child("notif_hearth_rate").setValue(String.valueOf(score4));
                         notifikasi("STOP! DATA ANDA MELEBIHI BATAS NORMAL", "PERINGATAN !!!");
+
                         notif2 = true;
                     } else {
                         notif2 = false;

@@ -1,6 +1,7 @@
 package dipdip.android.dip.com.hanun;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,5 +50,13 @@ public class Notifikasi2Activity extends Activity {
             }
         };
         mDatabase.addValueEventListener(postListener2);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(getBaseContext(), HomeActivity.class);
+        startActivity(i);
+        finish();
     }
 }
