@@ -219,6 +219,7 @@ public class HomeActivity extends Activity {
 
             }
         });
+
      /*   listviewHanun.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @SuppressLint("ShowToast")
             @Override
@@ -256,6 +257,7 @@ public class HomeActivity extends Activity {
                 i.putExtra("deta_jantung", tv4.getText().toString());
                 i.putExtra("putaran", tv2.getText().toString());
                 i.putExtra("kecepatan", tv3.getText().toString());
+                i.putExtra("waktu", spinner2.getSelectedItem().toString());
                 Toast.makeText(HomeActivity.this, hasil, Toast.LENGTH_LONG).show();
                 startActivity(i);
 /*                linearLayout.setVisibility(View.INVISIBLE);
@@ -323,6 +325,7 @@ public class HomeActivity extends Activity {
             }
         }
     }
+
     public void notifikasi(String pesan, String pengirim)
     {
         String notification_title = pengirim;

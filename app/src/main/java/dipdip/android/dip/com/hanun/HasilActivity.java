@@ -77,6 +77,7 @@ public class HasilActivity extends Activity {
         String data_jantung_hasil = getIntent().getStringExtra("deta_jantung");
         String putaran_hasil = getIntent().getStringExtra("putaran");
         String kecepatan_hasil = getIntent().getStringExtra("kecepatan");
+        String waktu_hasil = getIntent().getStringExtra("waktu");
         user = new HomeModel();
         list = new ArrayList<>();
         list2 = new ArrayList<>();
@@ -96,7 +97,7 @@ public class HasilActivity extends Activity {
         buttonbagikan = (Button) findViewById(R.id.btn_bagihasil);
         linearLayout = (LinearLayout) findViewById(R.id.linear1);
         linearLayout2 = (LinearLayout) findViewById(R.id.linear2);
-        tvWaktu.setText(suhu);
+        tvWaktu.setText(waktu_hasil);
         tvSuhu.setText(waktu);
         tvDetak.setText(detak_jantung);
         tvPutaran.setText(putaran);
@@ -146,7 +147,6 @@ public class HasilActivity extends Activity {
                 String nama = list.get(position);
                 String token = list2.get(position);
                 String uid = listuid.get(position);
-                Toast.makeText(HasilActivity.this, "Hasilnyaaa" + nama, Toast.LENGTH_SHORT).show(); //mengecek
                 progressDialog.show();
                 progressDialog.setCanceledOnTouchOutside(false);
                 Map<String, Object> data = new HashMap<>();
