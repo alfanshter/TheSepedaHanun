@@ -154,7 +154,7 @@ public class HomeActivity extends Activity {
                     } else {
                         notif2 = false;
                     }
-                    tv.setText(String.valueOf(score)+"C");
+                    tv.setText(String.valueOf(score));
                     tv2.setText(String.valueOf(score2));
                     tv3.setText(String.valueOf(score3)+"RPM");
                     tv4.setText(String.valueOf(score4)+"Bpm");
@@ -183,10 +183,12 @@ public class HomeActivity extends Activity {
                 } else {
 
                 }
-                tv.setText(score + "C");
-                tv2.setText(score2 + "");
-                tv3.setText(score3 + "RPM");
-                tv4.setText(score4 + "Bpm");
+                if (score2 >0){
+                    tv3.setText(String.valueOf(score3));
+                    tv4.setText(String.valueOf(score4));
+                    tv.setText(String.valueOf(score));
+                }
+                tv2.setText(String.valueOf(score2));
                 // ...
             }
 
@@ -304,11 +306,17 @@ public class HomeActivity extends Activity {
 
     public void onMulai(View v)
     {
+        tv.setText(String.valueOf(0.0));
+        tv2.setText(String.valueOf(0.0));
+        tv3.setText(String.valueOf(0.0));
+        tv4.setText(String.valueOf(0.0));
+
         if(isMulai){
             isMulai=!isMulai;
             bt1.setText("Mulai");
         } else {
             timer = Integer.valueOf(spinner2.getSelectedItem().toString())*60;
+//            timer = 10;
             HasilActivity.waktu = spinner2.getSelectedItem().toString();
             RiwayatActivity.listKecepatan.clear();
             RiwayatActivity.listPutaran.clear();

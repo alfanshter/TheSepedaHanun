@@ -41,6 +41,7 @@ import java.util.Map;
 
 import dipdip.android.dip.com.hanun.FCMService.Token;
 import dipdip.android.dip.com.hanun.Model.HomeModel;
+import dipdip.android.dip.com.hanun.SessionManager.Preferences;
 
 public class HasilActivity extends Activity {
     private DatabaseReference mDatabase,mDatabase2;
@@ -83,7 +84,7 @@ public class HasilActivity extends Activity {
         list2 = new ArrayList<>();
         listuid = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this,R.layout.user_info, R.id.userinfo, list);
-        waktu = suhu_hasil;
+        suhu = suhu_hasil;
         detak_jantung = data_jantung_hasil;
         putaran = putaran_hasil;
         kecepatan = kecepatan_hasil;
@@ -98,7 +99,7 @@ public class HasilActivity extends Activity {
         linearLayout = (LinearLayout) findViewById(R.id.linear1);
         linearLayout2 = (LinearLayout) findViewById(R.id.linear2);
         tvWaktu.setText(waktu_hasil);
-        tvSuhu.setText(waktu);
+        tvSuhu.setText(suhu);
         tvDetak.setText(detak_jantung);
         tvPutaran.setText(putaran);
         tvKecepatan.setText(kecepatan);
@@ -109,11 +110,15 @@ public class HasilActivity extends Activity {
         database = FirebaseDatabase.getInstance();
         mDatabase2 = database.getReference("user_list");
 
-        if(Float.parseFloat(suhu)>=35 && Float.parseFloat(suhu)<=38
-            && Float.parseFloat(detak_jantung)<220-Float.parseFloat(AkunActivity.usia)){
+        if(Float.parseFloat(suhu)>=35 && Float.parseFloat(suhu)<=38 && Float.parseFloat(detak_jantung)<220-Float.parseFloat(Preferences.getUsia(getBaseContext()))){
             tvDiagnosis.setText("Normal");
             diagnosis = "Normal";
-        } else {
+        }
+//        else if (Float.parseFloat(detak_jantung)<220-Float.parseFloat(AkunActivity.usia)){
+//            tvDiagnosis.setText("Normal");
+//            diagnosis = "Normal";
+//        }
+        else {
             tvDiagnosis.setText("Tidak Normal");
             diagnosis = "Tidak Normal";
         }
@@ -152,7 +157,7 @@ public class HasilActivity extends Activity {
                 Map<String, Object> data = new HashMap<>();
                 data.put("message", "Bagi hasil ");
                 data.put("from", UserID);
-                data.put("suhu" , waktu);
+                data.put("suhu" , suhu);
                 data.put("detak_jantung" ,detak_jantung);
                 data.put("diagnosis" ,diagnosis);
                 mFirestore.collection("Users/"+uid+"/Notifications").add(data).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
